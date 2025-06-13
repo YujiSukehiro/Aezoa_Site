@@ -1,30 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // This script provides smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('header nav a');
+    // Select all navigation links
+    const navLinks = document.querySelectorAll('nav a');
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+            // Prevent the default jump
             e.preventDefault();
 
+            // Get the target section's ID from the href
             const targetId = this.getAttribute('href');
-            // If the href is just '#' for the home link, scroll to the top
-            if (targetId === '#') {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                return;
-            }
-
             const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                // Calculate position, accounting for the fixed header
-                const headerOffset = document.querySelector('header').offsetHeight;
-                const elementPosition = targetSection.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
+            if (targetSection) {
+                // Smoothly scroll to the target section
                 window.scrollTo({
-                    top: offsetPosition,
+                    top: targetSection.offsetTop - 80, // Adjust for fixed header height
                     behavior: 'smooth'
                 });
             }
